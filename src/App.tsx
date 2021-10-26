@@ -1,25 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Suspense, useEffect } from "react";
+import { useLocation, withRouter } from "react-router-dom";
+import { GlobalStyle } from "./theme/globalStyle";
+import { ViewportProvider } from "./hooks/useViewport";
+/* cra built upon webpack with support for code splitting
+lazily load components with suspense while waiting for dynamic imports */
+import Routes from "./core/routes";
+
+declare global {
+  interface Window {
+    analytics: any;
+  }
+}
+
+function _ScrollToTop(props: any) {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return props.children;
+}
+
+const ScrollToTop = withRouter(_ScrollToTop);
+
+function usePageViews() {
+  const location = useLocation();
+  useEffect(() => {
+    window.analytics.page(location.pathname);
+  }, [location]);
+}
 
 function App() {
+  usePageViews();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ViewportProvider>
+      <GlobalStyle />
+      <Suspense fallback={<div>Loading...</div>}>
+        <ScrollToTop>
+          <Routes />
+        </ScrollToTop>
+      </Suspense>
+    </ViewportProvider>
   );
 }
 
