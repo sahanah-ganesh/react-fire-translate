@@ -16,3 +16,7 @@ function Routes() {
 }
 
 export default Routes;
+
+export const RouteAuthenticated = (): JSX.Element => {
+  return <></>;
+};

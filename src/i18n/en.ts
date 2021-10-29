@@ -1,7 +1,9 @@
 export const en = {
+  status: {
+    loading: "loading",
+    denied: "Access Denied",
+  },
   links: {
-    google: "Go to Google",
-    googleLink: "https://www.google.com/",
     signin: "Sign in",
     orders: "Orders",
     team: "Team",
@@ -14,6 +16,7 @@ export const en = {
     password: "Password",
     forgotPassword: "Forgot your password?",
     signin: "Sign in",
+    signinGoogle: "Sign in with Google",
     required: "Required",
   },
 };

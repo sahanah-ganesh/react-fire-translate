@@ -5,6 +5,7 @@ import { ActionButton } from "../button/ActionButton";
 import { TitleText } from "../text/TitleText";
 import { FormInput } from "./FormInput";
 import { useFormik } from "formik";
+import { signInWithGooglePopup, signInWithCredentials } from "../../core/api";
 import * as Yup from "yup";
 
 const StyledContainer = styled(Box)`
@@ -25,7 +26,7 @@ export const SigninForm = (): JSX.Element => {
       password: Yup.string().required(t("signin.required")),
     }),
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      signInWithCredentials(values.email, values.password);
     },
   });
   return (
@@ -54,6 +55,12 @@ export const SigninForm = (): JSX.Element => {
           type="submit"
           title={t("signin.signin")}
           onClick={formik.handleSubmit}
+        />
+        <ActionButton
+          google={true}
+          type="submit"
+          title={t("signin.signinGoogle")}
+          onClick={signInWithGooglePopup}
         />
       </StyledContainer>
     </form>

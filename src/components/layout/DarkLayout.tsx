@@ -2,23 +2,23 @@ import { Box, Image } from "rebass/styled-components";
 import DarkBackground from "../../assets/DarkBackground.png";
 import styled from "styled-components";
 
-const FadedBackground = styled(Box)`
+const StyledBackground = styled(Box)`
   height: 100vh;
   width: 100vw;
   display: flex;
 `;
 
-const FadedLogo = styled(Image)`
+const StyledLogo = styled(Image)`
   height: 100%;
   width: 100%;
 `;
 
-const FadedLayout = (): JSX.Element => {
+const DarkLayout = (): JSX.Element => {
   return (
-    <FadedBackground>
-      <FadedLogo src={DarkBackground} />
-    </FadedBackground>
+    <StyledBackground>
+      <StyledLogo src={DarkBackground} />
+    </StyledBackground>
   );
 };
 
-export default FadedLayout;
+export default DarkLayout;

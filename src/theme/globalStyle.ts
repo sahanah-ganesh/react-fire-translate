@@ -12,6 +12,7 @@ export const Colors = {
   stone: "#838C83",
   slate: "#737474",
   redEarth: "#E12D48",
+  googleBlue: "#4285F4",
 };
 
 export const GlobalStyle = createGlobalStyle`

@@ -1,7 +1,9 @@
 import { Suspense, useEffect } from "react";
 import { useLocation, withRouter } from "react-router-dom";
 import { GlobalStyle } from "./theme/globalStyle";
+import { StoreProvider } from "./core/store";
 import { ViewportProvider } from "./hooks/useViewport";
+import { LoadingLayout } from "./components/layout/LoadingLayout";
 /* cra built upon webpack with support for code splitting
 lazily load components with suspense while waiting for dynamic imports */
 import Routes from "./core/routes";
@@ -32,14 +34,16 @@ function usePageViews() {
 function App() {
   usePageViews();
   return (
-    <ViewportProvider>
-      <GlobalStyle />
-      <Suspense fallback={<div>Loading...</div>}>
-        <ScrollToTop>
-          <Routes />
-        </ScrollToTop>
-      </Suspense>
-    </ViewportProvider>
+    <StoreProvider>
+      <ViewportProvider>
+        <GlobalStyle />
+        <Suspense fallback={<LoadingLayout />}>
+          <ScrollToTop>
+            <Routes />
+          </ScrollToTop>
+        </Suspense>
+      </ViewportProvider>
+    </StoreProvider>
   );
 }
 

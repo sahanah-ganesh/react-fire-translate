@@ -1,6 +1,6 @@
 import { Box } from "rebass/styled-components";
 import { SigninForm } from "../../components/form/SigninForm";
-import HalfLayout from "../../components/layout/HalfLayout";
+import DarkLayout from "../../components/layout/DarkLayout";
 import styled from "styled-components";
 
 const StyledBox = styled(Box)`
@@ -18,7 +18,7 @@ const Signin = (): JSX.Element => {
   return (
     <Box display="flex" flexDirection="row">
       <Box width="50%">
-        <HalfLayout />
+        <DarkLayout />
       </Box>
       <StyledBox>
         <SigninForm />
