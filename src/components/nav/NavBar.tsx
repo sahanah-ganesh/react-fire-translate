@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
-import { Box, Image } from "rebass/styled-components";
+import { Box, Image, Button } from "rebass/styled-components";
 // import Menu from "./Menu";
 import Logo from "../../assets/Logo.svg";
+import Logout from "../../assets/Logout.svg";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+import { signout } from "../../core/api";
 
 const NavButtonBox = styled(Box)`
   display: flex;
@@ -11,14 +13,15 @@ const NavButtonBox = styled(Box)`
 `;
 
 const NavButtonRight = styled(Link)`
-  color: white;
+  color: black;
   background-color: transparent;
   text-decoration: none;
   padding: 1rem;
   margin-left: 3rem;
   border-radius: 5px;
   &:hover {
-    background-color: rgba(255, 255, 255, 0.12);
+    border: 2px solid black;
+    text-decoration: underline;
   }
 `;
 
@@ -30,7 +33,16 @@ const NavButtonLeft = styled(Link)`
   margin-right: 2rem;
   border-radius: 5px;
   &:hover {
-    background-color: rgba(255, 255, 255, 0.12);
+    border: 2px solid black;
+    text-decoration: underline;
+  }
+`;
+
+const StyledLogout = styled(Button)`
+  outline: none;
+  background-color: transparent;
+  &:hover {
+    border: 2px solid black;
   }
 `;
 
@@ -42,22 +54,24 @@ const NavBar = (): JSX.Element => {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        borderBottom: "1px solid rgba(255, 255, 255, 0.17)",
+        borderBottom: "2px solid black",
         padding: "1rem",
+        backgroundColor: "white",
       }}
     >
       <NavButtonBox>
         <Link to="/">
           <Image height="50px" width="50px" src={Logo} />
         </Link>
-        <NavButtonRight to="/">{t("links.orders")}</NavButtonRight>
+        <NavButtonRight to="/">{t("links.languages")}</NavButtonRight>
+        <NavButtonRight to="/">{t("links.keys")}</NavButtonRight>
         {/* <Menu /> */}
       </NavButtonBox>
       <NavButtonBox>
-        <NavButtonLeft to="/">{t("links.test")}</NavButtonLeft>
-        <Link to="/">
-          <Image height="50px" width="50px" src={Logo} />
-        </Link>
+        <NavButtonLeft to="/">{t("links.platform")}</NavButtonLeft>
+        <StyledLogout onClick={signout}>
+          <Image height="30px" width="30px" src={Logout} />
+        </StyledLogout>
       </NavButtonBox>
     </Box>
   );

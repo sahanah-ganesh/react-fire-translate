@@ -1,5 +1,6 @@
+import { useState } from "react";
 import styled from "styled-components";
-import { Box } from "rebass/styled-components";
+import { Box, Text } from "rebass/styled-components";
 import { useTranslation } from "react-i18next";
 import { ActionButton } from "../button/ActionButton";
 import { TitleText } from "../text/TitleText";
@@ -12,8 +13,18 @@ const StyledContainer = styled(Box)`
   width: 100%;
 `;
 
+const StyledText = styled(Text)`
+  color: red;
+  padding: 0rem 1rem 1rem 1rem;
+  font-size: 20px;
+  font-weight: 600;
+`;
+
 export const SigninForm = (): JSX.Element => {
   const { t } = useTranslation();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -26,13 +37,37 @@ export const SigninForm = (): JSX.Element => {
       password: Yup.string().required(t("signin.required")),
     }),
     onSubmit: (values) => {
-      signInWithCredentials(values.email, values.password);
+      setLoading(true);
+      signInWithCredentials(values.email, values.password)
+        .then(() => {
+          setLoading(false);
+          return null;
+        })
+        .catch((err) => {
+          setLoading(false);
+          setError(err.message);
+        });
     },
   });
+
+  const handleClickGoogle = () => {
+    setLoading(true);
+    signInWithGooglePopup()
+      .then(() => {
+        setLoading(false);
+        return null;
+      })
+      .catch((err) => {
+        setLoading(false);
+        setError(err.message);
+      });
+  };
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <StyledContainer>
         <TitleText paddingBottom={5} title={t("signin.title")} />
+        {error && <StyledText>{error}</StyledText>}
         <FormInput
           type="email"
           text={t("signin.email")}
@@ -55,12 +90,14 @@ export const SigninForm = (): JSX.Element => {
           type="submit"
           title={t("signin.signin")}
           onClick={formik.handleSubmit}
+          loading={loading}
         />
         <ActionButton
           google={true}
           type="submit"
           title={t("signin.signinGoogle")}
-          onClick={signInWithGooglePopup}
+          onClick={handleClickGoogle}
+          loading={loading}
         />
       </StyledContainer>
     </form>

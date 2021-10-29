@@ -1,14 +1,18 @@
 import styled from "styled-components";
 import { Colors } from "../../theme/globalStyle";
 
-const StyledSpinner = styled.svg`
+const StyledSpinner = styled.svg<{
+  spinColor: string | undefined;
+  spinHeight: string | undefined;
+  spinWidth: string | undefined;
+}>`
   animation: rotate 2s linear infinite;
   margin: -25px 0 0 -25px;
-  width: 50px;
-  height: 50px;
+  width: ${({ spinWidth }) => (spinWidth ? spinWidth : "100px")};
+  height: ${({ spinHeight }) => (spinHeight ? spinHeight : "100px")};
 
   & .path {
-    stroke: ${Colors.freshTeal};
+    stroke: ${({ spinColor }) => (spinColor ? spinColor : Colors.freshTeal)};
     stroke-linecap: round;
     animation: dash 1.5s ease-in-out infinite;
   }
@@ -34,8 +38,22 @@ const StyledSpinner = styled.svg`
   }
 `;
 
-export const LoaderSpinner = () => (
-  <StyledSpinner viewBox="0 0 50 50">
+interface SpinProps {
+  spinColor?: string | undefined;
+  spinHeight?: string | undefined;
+  spinWidth?: string | undefined;
+}
+export const LoaderSpinner = ({
+  spinColor,
+  spinHeight,
+  spinWidth,
+}: SpinProps) => (
+  <StyledSpinner
+    spinColor={spinColor}
+    spinHeight={spinHeight}
+    spinWidth={spinWidth}
+    viewBox="0 0 50 50"
+  >
     <circle
       className="path"
       cx="25"

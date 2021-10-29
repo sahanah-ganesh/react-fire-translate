@@ -1,14 +1,28 @@
+import { Suspense } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./i18n/i18n";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
+import { LoaderSpinner } from "./components/loading/LoaderSpinner";
+
+export const SuspenseSpinner = () => (
+  <div
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      paddingTop: "30%",
+    }}
+  >
+    <LoaderSpinner />
+  </div>
+);
 
 ReactDOM.render(
-  <BrowserRouter>
+  <Suspense fallback={<SuspenseSpinner />}>
     <App />
-  </BrowserRouter>,
+  </Suspense>,
   document.getElementById("root")
 );
 

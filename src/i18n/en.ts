@@ -1,13 +1,13 @@
 export const en = {
   status: {
-    loading: "loading",
+    loading: "Loading...",
     denied: "Access Denied",
   },
   links: {
     signin: "Sign in",
-    orders: "Orders",
-    team: "Team",
-    test: "Test Project 1",
+    languages: "Languages",
+    keys: "Keys",
+    platform: "Platform",
   },
   signin: {
     title: "Sign in to the Translation Portal",

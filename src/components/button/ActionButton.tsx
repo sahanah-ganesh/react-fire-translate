@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Text, Button, Image } from "rebass/styled-components";
 import { Colors } from "../../theme/globalStyle";
 import G from "../../assets/G.svg";
+import { LoaderSpinner } from "../loading/LoaderSpinner";
 
 const ButtonBox = styled(Button)<{ google: boolean }>`
   padding: 1.5rem;
@@ -36,6 +37,7 @@ interface ButtonProps {
   onClick?: () => void;
   type?: string;
   google?: boolean;
+  loading?: boolean;
 }
 
 export const ActionButton = ({
@@ -43,9 +45,18 @@ export const ActionButton = ({
   onClick,
   type,
   google = false,
+  loading = false,
 }: ButtonProps) => (
   <ButtonBox google={google} type={type} onClick={onClick}>
-    {google ? <StyledImage src={G} /> : null}
-    <ButtonTitle>{title}</ButtonTitle>
+    {!loading && google ? <StyledImage src={G} /> : null}
+    {loading ? (
+      <LoaderSpinner
+        spinColor={Colors.deepPurple}
+        spinHeight="1rem"
+        spinWidth="1rem"
+      />
+    ) : (
+      <ButtonTitle>{title}</ButtonTitle>
+    )}
   </ButtonBox>
 );
