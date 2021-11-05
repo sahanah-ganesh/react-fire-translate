@@ -6,6 +6,8 @@ import Logout from "../../assets/Logout.svg";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import { signout } from "../../core/api";
+import DownArrow from "../../assets/DownArrow.svg";
+import { DropDown } from "../button/DropDown";
 
 const NavButtonBox = styled(Box)`
   display: flex;
@@ -36,6 +38,8 @@ const NavButtonLeft = styled(Link)`
     border: 2px solid black;
     text-decoration: underline;
   }
+  display: flex;
+  flex-direction: row;
 `;
 
 const StyledLogout = styled(Button)`
@@ -68,7 +72,10 @@ const NavBar = (): JSX.Element => {
         {/* <Menu /> */}
       </NavButtonBox>
       <NavButtonBox>
-        <NavButtonLeft to="/">{t("links.platform")}</NavButtonLeft>
+        <DropDown
+          title={t("links.platform")}
+          options={["Web", "iOs", "Android"]}
+        />
         <StyledLogout onClick={signout}>
           <Image height="30px" width="30px" src={Logout} />
         </StyledLogout>
