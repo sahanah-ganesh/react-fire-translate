@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Box, Image, Button } from "rebass/styled-components";
 // import Menu from "./Menu";
@@ -8,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { signout } from "../../core/api";
 import { DropDown } from "../button/DropDown";
 import { Paths } from "../../core/routes";
+import { useStore } from "../../core/store";
 
 const NavButtonBox = styled(Box)`
   display: flex;
@@ -35,8 +37,14 @@ const StyledLogout = styled(Button)`
   }
 `;
 
-const NavBar = (): JSX.Element => {
+interface NavBarProps {
+  landing?: boolean;
+}
+
+const NavBar = ({ landing }: NavBarProps): JSX.Element => {
   const { t } = useTranslation();
+  const { state } = useStore();
+  const [selectedOption, setSelectedOption] = useState("");
   return (
     <Box
       style={{
@@ -52,17 +60,27 @@ const NavBar = (): JSX.Element => {
         <Link to={Paths.landing}>
           <Image height="50px" width="50px" src={Logo} />
         </Link>
-        <NavButtonRight to={Paths.languages}>
-          {t("links.languages")}
-        </NavButtonRight>
-        <NavButtonRight to={Paths.keys}>{t("links.keys")}</NavButtonRight>
+        {!landing && (
+          <>
+            <NavButtonRight to={Paths.languages(selectedOption)}>
+              {t("links.languages")}
+            </NavButtonRight>
+            <NavButtonRight to={Paths.keys(selectedOption)}>
+              {t("links.keys")}
+            </NavButtonRight>
+          </>
+        )}
         {/* <Menu /> */}
       </NavButtonBox>
       <NavButtonBox>
-        <DropDown
-          title={t("links.platform")}
-          options={["Web", "iOs", "Android"]}
-        />
+        {state.platforms.length !== 0 && (
+          <DropDown
+            selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
+            title={t("links.platform")}
+            options={state.platforms}
+          />
+        )}
         <StyledLogout onClick={signout}>
           <Image height="30px" width="30px" src={Logout} />
         </StyledLogout>

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, Dispatch, SetStateAction } from "react";
 import { Box, Image } from "rebass/styled-components";
 import styled from "styled-components";
 import DownArrow from "../../assets/DownArrow.svg";
@@ -52,11 +52,17 @@ const StyledBox = styled(Box)`
 interface DropDownProps {
   title: string;
   options: string[];
+  selectedOption: string;
+  setSelectedOption: Dispatch<SetStateAction<string>>;
 }
 
-export const DropDown = ({ title, options }: DropDownProps) => {
+export const DropDown = ({
+  title,
+  options,
+  selectedOption,
+  setSelectedOption,
+}: DropDownProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("");
   const node = useRef<HTMLDivElement>(null);
 
   const toggling = () => setIsOpen(!isOpen);

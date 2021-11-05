@@ -4,7 +4,7 @@ import { useStore } from "./store";
 import { SuspenseSpinner } from "../index";
 /* cra built upon webpack with support for code splitting
 lazily load components with suspense while waiting for dynamic imports */
-const Home = lazy(() => import("../pages/home/Home"));
+const Landing = lazy(() => import("../pages/landing/Landing"));
 const Signin = lazy(() => import("../pages/signin/Signin"));
 const Languages = lazy(() => import("../pages/languages/Languages"));
 const Keys = lazy(() => import("../pages/keys/Keys"));
@@ -18,8 +18,8 @@ interface Params {
 export const Paths = {
   landing: "/welcome",
   signin: "/signin",
-  languages: "/languages",
-  keys: "/keys",
+  languages: (platform: string) => `/${platform}/languages`,
+  keys: (platform: string) => `/${platform}/keys`,
 };
 
 const RouteAuthenticated = ({
@@ -59,7 +59,7 @@ export const Routes = () => {
     <Switch>
       <Redirect exact from="/" to={Paths.landing} />
       <RouteAuthenticated
-        component={Home}
+        component={Landing}
         exact
         path={Paths.landing}
         to={Paths.signin}
@@ -71,10 +71,14 @@ export const Routes = () => {
       />
       <RouteAuthenticated
         component={Languages}
-        path={Paths.languages}
-        to={Paths.languages}
+        path={Paths.languages(":platform")}
+        to={Paths.landing}
       />
-      <RouteAuthenticated component={Keys} path={Paths.keys} to={Paths.keys} />
+      <RouteAuthenticated
+        component={Keys}
+        path={Paths.keys(":platform")}
+        to={Paths.landing}
+      />
     </Switch>
   );
 };

@@ -14,5 +14,5 @@ const config = {
 };
 
 export const app = initializeApp(config);
-export const db = getDatabase(app);
+export const database = getDatabase(app);
 export const auth = getAuth();
