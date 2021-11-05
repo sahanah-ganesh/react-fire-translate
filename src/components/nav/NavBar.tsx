@@ -6,7 +6,6 @@ import Logout from "../../assets/Logout.svg";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import { signout } from "../../core/api";
-import DownArrow from "../../assets/DownArrow.svg";
 import { DropDown } from "../button/DropDown";
 
 const NavButtonBox = styled(Box)`
@@ -25,21 +24,6 @@ const NavButtonRight = styled(Link)`
     border: 2px solid black;
     text-decoration: underline;
   }
-`;
-
-const NavButtonLeft = styled(Link)`
-  color: black;
-  background-color: white;
-  text-decoration: none;
-  padding: 1rem 2rem 1rem 2rem;
-  margin-right: 2rem;
-  border-radius: 5px;
-  &:hover {
-    border: 2px solid black;
-    text-decoration: underline;
-  }
-  display: flex;
-  flex-direction: row;
 `;
 
 const StyledLogout = styled(Button)`
