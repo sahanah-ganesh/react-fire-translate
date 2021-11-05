@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import { signout } from "../../core/api";
 import { DropDown } from "../button/DropDown";
+import { Paths } from "../../core/routes";
 
 const NavButtonBox = styled(Box)`
   display: flex;
@@ -48,11 +49,13 @@ const NavBar = (): JSX.Element => {
       }}
     >
       <NavButtonBox>
-        <Link to="/">
+        <Link to={Paths.landing}>
           <Image height="50px" width="50px" src={Logo} />
         </Link>
-        <NavButtonRight to="/">{t("links.languages")}</NavButtonRight>
-        <NavButtonRight to="/">{t("links.keys")}</NavButtonRight>
+        <NavButtonRight to={Paths.languages}>
+          {t("links.languages")}
+        </NavButtonRight>
+        <NavButtonRight to={Paths.keys}>{t("links.keys")}</NavButtonRight>
         {/* <Menu /> */}
       </NavButtonBox>
       <NavButtonBox>

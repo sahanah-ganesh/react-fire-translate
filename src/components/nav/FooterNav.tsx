@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import { useViewport } from "../../hooks/useViewport";
 import LinkBox from "./LinkBox";
+import { Paths } from "../../core/routes";
 
 const Links = styled(Link)`
   color: white;
@@ -42,11 +43,11 @@ export const FooterNav = (): JSX.Element => {
     >
       {width > breakpoint ? (
         <Box>
-          <Links to="/">{t("links.home")}</Links>
+          <Links to={Paths.landing}>{t("links.home")}</Links>
           <ExternalLink target="_blank" href={t("links.googleLink")}>
             {t("links.google")}
           </ExternalLink>
-          <Links to="/signin">{t("links.signin")}</Links>
+          <Links to={Paths.signin}>{t("links.signin")}</Links>
         </Box>
       ) : (
         <LinkBox />

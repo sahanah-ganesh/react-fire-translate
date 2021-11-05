@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Box } from "rebass/styled-components";
 import { useTranslation } from "react-i18next";
+import { Paths } from "../../core/routes";
 
 const Links = styled(Link)`
   color: white;
@@ -39,7 +40,7 @@ const LinkBox = (): JSX.Element => {
         </ExternalLink>
       </Box>
       <Box mb={3}>
-        <Links to="/">{t("links.google")}</Links>
+        <Links to={Paths.landing}>{t("links.google")}</Links>
       </Box>
     </Box>
   );

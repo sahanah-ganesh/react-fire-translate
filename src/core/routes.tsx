@@ -6,7 +6,8 @@ import { SuspenseSpinner } from "../index";
 lazily load components with suspense while waiting for dynamic imports */
 const Home = lazy(() => import("../pages/home/Home"));
 const Signin = lazy(() => import("../pages/signin/Signin"));
-
+const Languages = lazy(() => import("../pages/languages/Languages"));
+const Keys = lazy(() => import("../pages/keys/Keys"));
 interface Params {
   component: React.ComponentType;
   exact?: boolean;
@@ -14,9 +15,11 @@ interface Params {
   to: string;
 }
 
-const Paths = {
+export const Paths = {
   landing: "/welcome",
   signin: "/signin",
+  languages: "/languages",
+  keys: "/keys",
 };
 
 const RouteAuthenticated = ({
@@ -66,6 +69,12 @@ export const Routes = () => {
         path={Paths.signin}
         to={Paths.landing}
       />
+      <RouteAuthenticated
+        component={Languages}
+        path={Paths.languages}
+        to={Paths.languages}
+      />
+      <RouteAuthenticated component={Keys} path={Paths.keys} to={Paths.keys} />
     </Switch>
   );
 };

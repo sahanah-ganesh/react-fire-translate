@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import Hamburger from "./Hamburger";
 import { useOnClickOutside } from "../../hooks/useOnClickOutside";
+import { Paths } from "../../core/routes";
 
 const StyledMenu = styled.nav<{ open: boolean }>`
   top: 0;
@@ -59,7 +60,7 @@ const Menu = (): JSX.Element => {
   return (
     <div style={{ padding: "1rem" }} ref={node}>
       <StyledMenu open={open}>
-        <Links to="/signin">{t("links.signin")}</Links>
+        <Links to={Paths.signin}>{t("links.signin")}</Links>
         <ExternalLink target="_blank" href="https://www.google.com/">
           {t("links.google")}
         </ExternalLink>
